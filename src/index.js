@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-//import './index.css';
-import LomakeApp from './tehtävät/LomakeApp';
 import * as serviceWorker from './serviceWorker';
+import HarjTyoRavintolat from './HarjTyoRavintolat';
 
-ReactDOM.render(<LomakeApp />, document.getElementById('root'));
+ReactDOM.render(<HarjTyoRavintolat />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
