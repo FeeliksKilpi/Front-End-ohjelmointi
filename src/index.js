@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import HarjTyoRavintolat from './HarjTyoRavintolat';
-import App from './App';
 import MatkaApp from './MatkaApp';
+import TehtavatMUI from './TehtavatMUI';
+import App from './App';
 
-ReactDOM.render(<MatkaApp />, document.getElementById('root'));
+ReactDOM.render(<TehtavatMUI />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
