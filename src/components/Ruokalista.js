@@ -6,6 +6,8 @@ function Ruokalista() {
     const [virhe, setVirhe] = useState('Haetaan...');
     const [ravintola, setRavintola] = useState();
     const [luonastietoja, setLuonastietoja] = useState();
+    // Muuttuja, jonka tilaa voidaan vertailla jos jsonissa kategoria on "kasvisruoka"
+    const [vegesafka, setVegesafka] = useState();
     // Ravintolan ID, josta tiedot haetaan
     const [ID, setID] = useState(59);
     // Oletuksena 59, eli Kalasatama
@@ -36,6 +38,13 @@ function Ruokalista() {
         }
      }
 
+     const kasvisRuoka = () => {
+       
+       
+     }
+
+    
+
    return (
    <div style={ {fontFamily: 'Helvetica, Sans-serif', backgroundColor: '#5e0d0d', color: '#fff'} }>
         {virhe} <br />
@@ -56,12 +65,17 @@ function Ruokalista() {
             <h1 style={ {backgroundColor: '#ae1919', padding: '4px'} }>{ravintola}</h1>
             <h3>{luonastietoja}</h3>
             <br />
+            
             {/*sisäkkäiset map-funktiot ja Objektiksi muuttaminen*/}
             { ruokalistat.map((tiedot) => (
                 <div style={ {backgroundColor: '#ae1919', padding: '4px', color: '#fff', fontSize: '14px'} } key = {tiedot.courses}>{tiedot.date}
                 <br />
                     <ul>
                         { (Object.values(tiedot.courses)).map (course => {
+                            if(course.category.indexOf("kasvis")) {
+                                setVegesafka('kasvisruoka');
+                              
+                            } 
                             return(
                                 <li>
                                 { course.title_fi + ' ' + course.properties + ' ' + course.price }
@@ -71,7 +85,7 @@ function Ruokalista() {
                         } 
                     </ul>
                 </div>
-             )) }
+                    ))  }     
 </div>);
 }
 
