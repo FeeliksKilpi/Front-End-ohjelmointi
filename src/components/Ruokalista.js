@@ -1,4 +1,40 @@
 import React, { useEffect, useState } from 'react';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardActions from '@material-ui/core/CardActions';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import TextField from '@material-ui/core/TextField';
+import { Container } from '@material-ui/core';
+
+//Listaus
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+
+// Ikonit
+import EcoIcon from '@material-ui/icons/Eco';
+import EuroIcon from '@material-ui/icons/Euro';
+import MoodIcon from '@material-ui/icons/Mood';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+
+//Värit
+import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import lime from '@material-ui/core/colors/lime';
+import teal from '@material-ui/core/colors/teal';
+
 
 function Ruokalista() {
     
@@ -6,8 +42,6 @@ function Ruokalista() {
     const [virhe, setVirhe] = useState('Haetaan...');
     const [ravintola, setRavintola] = useState();
     const [luonastietoja, setLuonastietoja] = useState();
-    // Muuttuja, jonka tilaa voidaan vertailla jos jsonissa kategoria on "kasvisruoka"
-    const [vegesafka, setVegesafka] = useState();
     // Ravintolan ID, josta tiedot haetaan
     const [ID, setID] = useState(59);
     // Oletuksena 59, eli Kalasatama
@@ -38,54 +72,77 @@ function Ruokalista() {
         }
      }
 
-     const kasvisRuoka = () => {
-       
-       
-     }
+     const theme = createMuiTheme({
+        palette: {
+            primary: lime,
+            secondary: teal,
+        },
 
-    
+     });
 
    return (
-   <div style={ {fontFamily: 'Helvetica, Sans-serif', backgroundColor: '#5e0d0d', color: '#fff'} }>
+   <div>
+       <Container align="center">
         {virhe} <br />
-        <form style={ {fontSize: '12px'} }>
-            <label htmlFor='ravintola'>Joku muu kuin listattu ravintola (Syötä ID): </label>
-            <input type='text' name='hakutermi' id='hakutermi' value={ID} onChange={ (e) => setID(e.target.value) } /> <br />
-                <select id="ravintolavalinta" name="ravintolatlista" onChange={ (e) => setID(e.target.value) }>
-                    <option value='59'>Ravintola Kalasatama</option>
-                    <option value='89'>Ravintola Viikin Kartano</option>
-                    <option value='56'>Ravintola La Mer</option>
-                    <option value='127'>Ravintola JAMK Bittipannu</option>
-                    <option value='120'>Ravintola Elektra</option>
-                    <option value='121'>Ravintola Galaksi</option>
-                </select>
-                <input type='text' value={ID}></input>
-            <input type='button' name='hae' value='Hae' onClick={ (e) => hae(e) } />
-        </form>
-            <h1 style={ {backgroundColor: '#ae1919', padding: '4px'} }>{ravintola}</h1>
-            <h3>{luonastietoja}</h3>
-            <br />
+        <Paper elevation={1} align="center">
+        <FormControl style={ {fontSize: '12px'} }>
+            <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID}></TextField>
             
+            
+                <Select id="ravintolavalinta" name="ravintolatlista" value={ID} onChange={ (e) => setID(e.target.value) }>
+                    <MenuItem value='59'>Ravintola Kalasatama (59)</MenuItem>
+                    <MenuItem value='89'>Ravintola Viikin Kartano (89)</MenuItem>
+                    <MenuItem value='56'>Ravintola La Mer (56)</MenuItem>
+                    <MenuItem value='127'>Ravintola JAMK Bittipannu (127)</MenuItem>
+                    <MenuItem value='120'>Ravintola Elektra (120)</MenuItem>
+                    <MenuItem value='121'>Ravintola Galaksi (121)</MenuItem>
+                </Select>
+            <Typography value={ID}>{ID}</Typography>
+            <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) }>Hae</Button>
+        </FormControl>
+        </Paper>
+            <Paper align="center" elevation={3}>
+                <Typography variant={"h1"} align="center" style={ {padding: '4px'} }>{ravintola + "   "}</Typography>
+                <Typography variant={"h2"} align="center">{luonastietoja}<FastfoodIcon style={ {fontSize: 70} }/></Typography>
+            </Paper>
+        </Container>   
+        <Container>
             {/*sisäkkäiset map-funktiot ja Objektiksi muuttaminen*/}
+            <Grid container spacing={5} direction="column" alignItems="stretch">
             { ruokalistat.map((tiedot) => (
-                <div style={ {backgroundColor: '#ae1919', padding: '4px', color: '#fff', fontSize: '14px'} } key = {tiedot.courses}>{tiedot.date}
-                <br />
-                    <ul>
-                        { (Object.values(tiedot.courses)).map (course => {
-                            if(course.category.indexOf("kasvis")) {
-                                setVegesafka('kasvisruoka');
-                              
-                            } 
-                            return(
-                                <li>
-                                { course.title_fi + ' ' + course.properties + ' ' + course.price }
-                                </li>
-                                )
-                            })
-                        } 
-                    </ul>
-                </div>
-                    ))  }     
+                <Grid style={ {padding: '10px', fontSize: '14px'} } key = {tiedot.courses}>
+                    <Card>
+                        <CardHeader title={tiedot.date} subheader={ravintola}></CardHeader>
+                            <CardContent>
+                            <Typography color='primary'>
+                                <List>
+                                    { (Object.values(tiedot.courses)).map (course => {
+                                        //Testataan toimiiko indexointi stringistä
+                                        console.log((course.category.indexOf('Kasvis')));
+                                            return (
+                                                <ListItem>
+                                                { course.category.indexOf('Kasvis') === -1 ?
+                                                course.title_fi + ' ' + course.properties + ' Hinta: ' + course.price  
+                                                // ? : valintarakenne
+                                                : course.title_fi + ' ' + course.properties + ' Hinta: ' + course.price + ' Kasvisruoka' 
+                                                }
+                                                </ListItem> ) } 
+                                    ) } 
+                                </List>
+                            </Typography>
+                            </CardContent>
+                        <CardActions>
+                            <Button color="primary" variant="outlined">Allergiatiedot <HelpOutlineIcon /></Button>
+                            <Button color="primary" variant="outlined">Hinnasto <EuroIcon /></Button>
+                            <Button color="primary" variant="outlined">Ilmastohyvitys <EcoIcon /></Button>
+                            <Button color="primary" variant="outlined">Suosikit <MoodIcon /></Button>
+                        </CardActions>
+                    </Card>
+                </Grid>
+            
+                    ))  }
+            </Grid>
+    </Container>     
 </div>);
 }
 
