@@ -5,6 +5,7 @@ import MatkalomakeMUI from './Navigation/MatkalomakeMUI';
 import NavBar from './HarjoitustyoNavigaatio/NavBar';
 import MenuPalkki from './HarjoitustyoNavigaatio/MenuPalkki';
 import Ruokalista from './components/Ruokalista';
+import Ruokalista2 from './components/Ruokalista2';
 
 const koulutukset = [
     {
@@ -27,7 +28,7 @@ const koulutukset = [
         id: 5, otsikko: 'Muu', paiva: '2020-02-29',
         picture: "https://myy.haaga-helia.fi/~swd1ta001/kuvatJS/yleinen2.jpg"
     },
-    
+
     ]
 
 

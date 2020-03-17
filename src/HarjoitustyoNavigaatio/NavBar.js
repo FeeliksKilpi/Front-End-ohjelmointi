@@ -31,6 +31,8 @@ import Sananlasku from '../components/Sananlasku';
 import Slideri from '../components/Slideri';
 import Koulutusohjelmat from '../components/Koulutusohjelmat';
 
+import { Link } from 'react-router-dom';
+
 function NavBar(props) {
     const [value, setValue] = useState(0);
     //Drawer
@@ -74,7 +76,7 @@ function NavBar(props) {
                 </Toolbar>
                   <Drawer anchor='left' open={ open } onClick={ handleClose }>
                     <List>
-                      <ListItem button>
+                      <ListItem button component={ Link } to ='/'>
                         <ListItemIcon><FastfoodIcon /></ListItemIcon>
                         <ListItemText primary='Ruokalista' />
                       </ListItem>
@@ -82,11 +84,11 @@ function NavBar(props) {
                         <ListItemIcon><RestaurantIcon /></ListItemIcon>
                         <ListItemText primary='Suosikkiruoat' />
                       </ListItem>
-                      <ListItem button>
+                      <ListItem button component={ Link } to ='/suosikkiravintolat'>
                         <ListItemIcon><HomeIcon /></ListItemIcon>
                         <ListItemText primary='Suosikkiravintolat' />
                       </ListItem>
-                      <ListItem button>
+                      <ListItem button component={ Link } to ='/yhteystietoja'>
                         <ListItemIcon><ContactsIcon /></ListItemIcon>
                         <ListItemText primary='Ravintoloiden yht.tietoja' />
                       </ListItem>
