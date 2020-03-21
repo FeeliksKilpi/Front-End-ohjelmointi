@@ -10,13 +10,25 @@ import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+    kortti: {
+    backgroundColor: '#9c846a', color: 'white',
+    border: '4px solid grey',
+    borderRadius: '10px',
+    margin: '10px'
+        }
+    })
+
 function Yhteystietoja(props) {
+    const classes = useStyles();
     return(
         <Grid container spacing={3}>
             { props.yhteystiedot.map( tieto => {
                     return(
-                        <Grid item key={tieto.id}>
-                            <Card style={{minWidth: 150, minHeigth: 200}}>
+                        <Grid item key={tieto.id} style= {{margin: '10px'}}>
+                            <Card className={ classes.kortti } style={{minWidth: 150, minHeigth: 200}}>
                             <CardActions style={{fontSize: 12}}>
                                     <IconButton color='primary'><AccountCircleIcon />näytä</IconButton>
                                     <IconButton color='secondary'><DeleteIcon />poista</IconButton>      

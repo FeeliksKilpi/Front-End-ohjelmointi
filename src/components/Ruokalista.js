@@ -42,9 +42,21 @@ import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/sty
 import lime from '@material-ui/core/colors/lime';
 import teal from '@material-ui/core/colors/teal';
 
+const useStyles = makeStyles({
+    kortti: {
+    backgroundColor: '#edeadf', color: '#nnn',
+    border: '2px solid grey',
+    borderRadius: '20px',
+    margin: '10px'
+        },
+
+    logo: {
+        fontFamily: 'Abril Fatface'
+        }
+    })
 
 function Ruokalista(props) {
-    
+    const classes = useStyles();
     const [ruokalistat, setRuokalistat] = useState([]);
     const [virhe, setVirhe] = useState('Haetaan...');
     const [ravintola, setRavintola] = useState();
@@ -97,8 +109,8 @@ function Ruokalista(props) {
        <Container align="center">
         {virhe} <br />
         <Paper align="center" elevation={3}>
-                <Typography variant={"h1"} align="center" style={ {padding: '4px'} }>{ravintola}</Typography>
-                <Typography variant={"h2"} align="center">{luonastietoja}<FastfoodIcon style={ {fontSize: 70} }/></Typography>
+                <Typography className={classes.logo} variant={"h1"} align="center" style={ {padding: '4px'} }>{ravintola}</Typography>
+                <Typography className={classes.logo} variant={"h2"} align="center">{luonastietoja}<FastfoodIcon style={ {fontSize: 70} }/></Typography>
                 
         </Paper>
         <Paper elevation={1} >
@@ -126,7 +138,7 @@ function Ruokalista(props) {
             <Grid container spacing={5} direction="column" alignItems="stretch">
             { ruokalistat.map((tiedot) => (
                 <Grid style={ {padding: '10px', fontSize: '14px'} } key = {tiedot.courses}>
-                    <Card>
+                    <Card className={classes.kortti}>
                         <CardHeader title={tiedot.date} subheader={ravintola}></CardHeader>
                             <CardContent>
                             <Typography color='primary'>

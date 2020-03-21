@@ -80,7 +80,7 @@ function NavBar(props) {
                         <ListItemIcon><FastfoodIcon /></ListItemIcon>
                         <ListItemText primary='Ruokalista' />
                       </ListItem>
-                      <ListItem button>
+                      <ListItem button component={ Link } to='/suosikkiruoat'>
                         <ListItemIcon><RestaurantIcon /></ListItemIcon>
                         <ListItemText primary='Suosikkiruoat' />
                       </ListItem>

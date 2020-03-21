@@ -4,11 +4,15 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 //Teema
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import purple from '@material-ui/core/colors/purple';
+import red from '@material-ui/core/colors/red';
 
 import Ruokalista from './components/Ruokalista';
 import NavBar from './HarjoitustyoNavigaatio/NavBar';
 import Yhteystietoja from './components/Yhteystietoja';
 import SuosikkiRavintolat from './components/SuosikkiRavintolat';
+import SuosikkiRuoat from './components/SuosikkiRuoat';
+import { blueGrey } from '@material-ui/core/colors';
 
 const osoiteTietoja = [
     {
@@ -50,23 +54,34 @@ const osoiteTietoja = [
 
 ];
 
-const osoite = "Testikatu 19";
-
+const theme = createMuiTheme({
+    palette: {
+        primary: {main: red[600], contrastText: '#FFFFFF'},
+        secondary: {main: purple[500], contrastText: '#FFFFFF'},
+        text: {primary: blueGrey[800], secondary: blueGrey[800], contrastText: '#FFFFFF'},
+        action: {hover: purple[200]},
+        background: {default: '#FFFFFF'},
+     },
+    typography: { },
+    overrides: { },
+    });
     
 
 
 function HarjTyoRavintolat() {
     return(
+    <MuiThemeProvider theme={theme}>
         <BrowserRouter>
             <div>
                 <NavBar navigaatio />
                 <Switch>
                     <Route exact path="/" component={ Ruokalista }/>
                     <Route path='/yhteystietoja' render={(props) => <Yhteystietoja {...props} yhteystiedot={ osoiteTietoja }/> } />
-                    
+                    <Route path='/suosikkiruoat' component={ SuosikkiRuoat } />
                 </Switch>
             </div>
         </BrowserRouter>
+    </MuiThemeProvider>
     )
 }
 
