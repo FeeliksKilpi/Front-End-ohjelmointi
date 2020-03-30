@@ -4,21 +4,23 @@ import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import ClearIcon from '@material-ui/icons/Clear';
+import { useParams } from 'react-router';
 
 const NewFoodForm = ({ addFood }) => {
+    let {nimi, hinta, allergeenit} = useParams();
     const [viesti, setViesti] = useState('');
     const [safka, setSafka] = useState(
         {
         id: uuid(),
-        nimi: '',
-        kalorit: '',
-        rasva: '',
+        nimi: nimi,
+        hinta: hinta,
+        allergeenit: allergeenit,
         hiilarit: '',
         proteiini: '',
         });
+        
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(Object.values(safka));
         addFood(safka);
         setSafka('');
     }
@@ -28,8 +30,8 @@ const NewFoodForm = ({ addFood }) => {
     
         setSafka({
             nimi: '',
-            kalorit: '',
-            rasva: '',
+            hinta: '',
+            allergeenit: '',
             hiilarit: '',
             proteiini: ''
         });
@@ -40,9 +42,9 @@ return (
     <form onSubmit={handleSubmit}>
         <TextField label='Nimi' name='nimi' value={ safka.nimi }
             onChange={ (e) => setSafka(e.target.value) } margin='normal' required fullWidth={true} autoFocus/>
-        <TextField label='Kalorit' name='kalorit' value={ safka.kalorit }
+        <TextField label='Hinta' name='hinta' value={ safka.hinta }
             onChange={ (e) => setSafka(e.target.value) } margin='normal' required fullWidth={true} />
-        <TextField label='Rasva' name='rasva' value={ safka.rasva }
+        <TextField label='Allergeenit' name='allergeenit' value={ safka.allergeenit }
             onChange={ (e) => setSafka(e.target.value) } margin='normal' required fullWidth={true} />
         <TextField label='Hiilarit' name='hiilarit' value={ safka.hiilarit }
             onChange={ (e) => setSafka(e.target.value) } margin='normal' required fullWidth={true} />

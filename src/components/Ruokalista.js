@@ -43,11 +43,12 @@ import lime from '@material-ui/core/colors/lime';
 import teal from '@material-ui/core/colors/teal';
 
 const useStyles = makeStyles({
-    kortti: {
-    backgroundColor: '#edeadf', color: '#nnn',
+    kortti: 
+    {
+    backgroundColor: '#e3d5b8', color: '#nnn',
     border: '2px solid grey',
     borderRadius: '20px',
-    margin: '10px'
+    margin: '10px',
         },
 
     logo: {
@@ -99,22 +100,23 @@ function Ruokalista(props) {
 
      });
 
+     //Reitityksen parametrejä varten
      let {ravID} = useParams();
-     ravID = ID;
      let {ravNimi} = useParams();
-     ravNimi = ravintola;
+     let { nimi } = useParams();
+     
 
    return (
    <div>
        <Container align="center">
         {virhe} <br />
-        <Paper align="center" elevation={3}>
+        <Paper align="center" elevation={3} className={classes.kortti}>
                 <Typography className={classes.logo} variant={"h1"} align="center" style={ {padding: '4px'} }>{ravintola}</Typography>
                 <Typography className={classes.logo} variant={"h2"} align="center">{luonastietoja}<FastfoodIcon style={ {fontSize: 70} }/></Typography>
                 
-        </Paper>
-        <Paper elevation={1} >
-        <FormControl style={ {fontSize: '12px'} }>
+        </Paper >
+        <Paper elevation={1} className={classes.kortti}>
+        <FormControl style={ {fontSize: '12px', margin: '20px'} }>
             <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID}></TextField>
             
             
@@ -127,9 +129,9 @@ function Ruokalista(props) {
                     <MenuItem value='121'>Ravintola Galaksi (121)</MenuItem>
                 </Select>
             <Typography value={ID}>{ID}</Typography>
-            <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) }>Hae</Button>
-            <Button color="primary" variant="contained" component={ Link } to={'/suosikki/' + ravID + '/' + ravNimi + '/' + "testikatu19"}
-            >Lisää suosikkiravintolaksi</Button>
+            <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) } style={{margin: '10px'}}>Hae</Button>
+            <Button color="primary" variant="contained" component={ Link } to={'/suosikki/' + ravID + '/' + ravNimi + '/' + "testikatu19"} style={{margin: '10px'}}
+            >Suosikkiravintola</Button>
         </FormControl>
         </Paper>
         </Container>   
@@ -137,9 +139,9 @@ function Ruokalista(props) {
             {/*sisäkkäiset map-funktiot ja Objektiksi muuttaminen*/}
             <Grid container spacing={5} direction="column" alignItems="stretch">
             { ruokalistat.map((tiedot) => (
-                <Grid style={ {padding: '10px', fontSize: '14px'} } key = {tiedot.courses}>
+                <Grid style={ {fontSize: '14px'} } key = {tiedot.courses}>
                     <Card className={classes.kortti}>
-                        <CardHeader title={tiedot.date} subheader={ravintola}></CardHeader>
+                        <CardHeader title={tiedot.date} subheader={ravintola} style={{backgroundColor: '#b09a72'}}></CardHeader>
                             <CardContent>
                             <Typography color='primary'>
                                 <List>
@@ -155,18 +157,18 @@ function Ruokalista(props) {
                                                 : course.title_fi + ' ' + course.properties + ' Hinta: ' + course.price + ' Kasvisruoka'
                                                 }
                                                 <Button variant="outlined" color="primary" size="small" startIcon={<SaveIcon />} 
-                                                style={{fontSize: '10px'}}>Suosikki</Button>
+                                                style={{fontSize: '10px', align: 'right'}} component={ Link } to={'/lisaa/' + course.title_fi + '/' + course.price + '/' + course.properties }>Suosikki</Button>
                                                 </ListItem> 
                                                 </div> ) } 
                                     ) } 
                                 </List>
                             </Typography>
                             </CardContent>
-                        <CardActions>
-                            <Button color="primary" variant="outlined">Allergiatiedot <HelpOutlineIcon /></Button>
-                            <Button color="primary" variant="outlined">Hinnasto <EuroIcon /></Button>
-                            <Button color="primary" variant="outlined">Ilmastohyvitys <EcoIcon /></Button>
-                            <Button color="primary" variant="outlined">Suosikit <MoodIcon /></Button>
+                        <CardActions style={{backgroundColor: '#b09a72'}}>
+                            <Button color="secondary" variant="outlined">Allergiatiedot <HelpOutlineIcon /></Button>
+                            <Button color="secondary" variant="outlined">Hinnasto <EuroIcon /></Button>
+                            <Button color="secondary" variant="outlined">Ilmastohyvitys <EcoIcon /></Button>
+                            <Button color="secondary" variant="outlined">Suosikit <MoodIcon /></Button>
                         </CardActions>
                     </Card>
                 </Grid>

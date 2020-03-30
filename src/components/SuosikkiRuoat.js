@@ -58,8 +58,8 @@ const addFood = (safka) => {
   setValues([...ruoat, { 
     id: uuid(), 
     nimi: safka, 
-    kalorit: safka.kalorit, 
-    rasva: safka.rasva, 
+    hinta: safka.hinta, 
+    allergeenit: safka.allergeenit, 
     hiilarit: safka.hiilarit, 
     proteiini: safka.proteiini, }]);
   setViesti('Lisätty');

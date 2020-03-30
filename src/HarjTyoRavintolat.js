@@ -60,7 +60,7 @@ const theme = createMuiTheme({
         secondary: {main: purple[500], contrastText: '#FFFFFF'},
         text: {primary: blueGrey[800], secondary: blueGrey[800], contrastText: '#FFFFFF'},
         action: {hover: purple[200]},
-        background: {default: '#FFFFFF'},
+        background: {default: '#ede8dd'},
      },
     typography: { },
     overrides: { },
@@ -71,13 +71,15 @@ const theme = createMuiTheme({
 function HarjTyoRavintolat() {
     return(
     <MuiThemeProvider theme={theme}>
+        <CssBaseline />
         <BrowserRouter>
             <div>
-                <NavBar navigaatio />
+                <NavBar />
                 <Switch>
                     <Route exact path="/" component={ Ruokalista }/>
                     <Route path='/yhteystietoja' render={(props) => <Yhteystietoja {...props} yhteystiedot={ osoiteTietoja }/> } />
                     <Route path='/suosikkiruoat' component={ SuosikkiRuoat } />
+                    <Route path='/lisaa/:nimi/:hinta?/:allergeenit?' component={  SuosikkiRuoat } />
                 </Switch>
             </div>
         </BrowserRouter>

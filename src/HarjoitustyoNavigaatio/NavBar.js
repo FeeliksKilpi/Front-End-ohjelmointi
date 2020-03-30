@@ -33,7 +33,7 @@ import Koulutusohjelmat from '../components/Koulutusohjelmat';
 
 import { Link } from 'react-router-dom';
 
-function NavBar(props) {
+function NavBar() {
     const [value, setValue] = useState(0);
     //Drawer
     const [open, setOpen] = useState(false);
