@@ -57,7 +57,7 @@ const SuosikkiRuoat = () => {
 const addFood = (safka) => {
   setValues([...ruoat, { 
     id: uuid(), 
-    nimi: safka, 
+    nimi: safka.nimi, 
     hinta: safka.hinta, 
     allergeenit: safka.allergeenit, 
     hiilarit: safka.hiilarit, 

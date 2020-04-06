@@ -28,6 +28,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+
 // Ikonit
 import EcoIcon from '@material-ui/icons/Eco';
 import EuroIcon from '@material-ui/icons/Euro';
@@ -36,11 +40,14 @@ import FastfoodIcon from '@material-ui/icons/Fastfood';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SaveIcon from '@material-ui/icons/Save';
+import CheckIcon from '@material-ui/icons/Check';
 
 //Värit
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import lime from '@material-ui/core/colors/lime';
 import teal from '@material-ui/core/colors/teal';
+
+import Yhteystietoja from './Yhteystietoja';
 
 const useStyles = makeStyles({
     kortti: 
@@ -50,7 +57,12 @@ const useStyles = makeStyles({
     borderRadius: '20px',
     margin: '10px',
         },
-
+    kontrollit: {
+        backgroundColor: '#e3d5b8', color: '#nnn',
+        border: '2px solid grey',
+        borderRadius: '20px',
+        margin: '20px',
+    },
     logo: {
         fontFamily: 'Abril Fatface'
         }
@@ -86,7 +98,7 @@ function Ruokalista(props) {
 
     const hae = (e) => {
         if (ID.length > 0) {
-         fetchUrl(ID);
+            fetchUrl(ID);
         }else {
          setVirhe('Anna ravintolan ID');
         }
@@ -108,18 +120,16 @@ function Ruokalista(props) {
 
    return (
    <div>
-       <Container align="center">
-        {virhe} <br />
+       <Container >
         <Paper align="center" elevation={3} className={classes.kortti}>
                 <Typography className={classes.logo} variant={"h1"} align="center" style={ {padding: '4px'} }>{ravintola}</Typography>
                 <Typography className={classes.logo} variant={"h2"} align="center">{luonastietoja}<FastfoodIcon style={ {fontSize: 70} }/></Typography>
                 
         </Paper >
-        <Paper elevation={1} className={classes.kortti}>
+        <Paper elevation={1} className={classes.kontrollit}>
+        
         <FormControl style={ {fontSize: '12px', margin: '20px'} }>
-            <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID}></TextField>
-            
-            
+            <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID} onChange={ (e) => setID(e.target.value)}></TextField>
                 <Select id="ravintolavalinta" name="ravintolatlista" value={ID} onChange={ (e) => setID(e.target.value) }>
                     <MenuItem value='59'>Ravintola Kalasatama (59)</MenuItem>
                     <MenuItem value='89'>Ravintola Viikin Kartano (89)</MenuItem>
@@ -128,11 +138,38 @@ function Ruokalista(props) {
                     <MenuItem value='120'>Ravintola Elektra (120)</MenuItem>
                     <MenuItem value='121'>Ravintola Galaksi (121)</MenuItem>
                 </Select>
-            <Typography value={ID}>{ID}</Typography>
+                {virhe}
             <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) } style={{margin: '10px'}}>Hae</Button>
-            <Button color="primary" variant="contained" component={ Link } to={'/suosikki/' + ravID + '/' + ravNimi + '/' + "testikatu19"} style={{margin: '10px'}}
-            >Suosikkiravintola</Button>
+            <Button color="primary" variant="contained" style={{margin: '10px'}}>Lisää</Button>
         </FormControl>
+        
+        <GridList style={{margin: '20px'}}>
+            <Card style={{width: '150px', height: '200px'}}>
+                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
+                <CardContent>
+                    <Typography>Ravintola X</Typography>
+                </CardContent>
+                <CardActions></CardActions>
+            </Card>
+            <Card style={{width: '150px', height: '200px'}}>
+                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
+                <CardContent>
+                    <Typography>Ravintola X</Typography>
+                </CardContent>
+                <CardActions></CardActions>
+            </Card>
+            <Card style={{width: '150px', height: '250px'}}>
+                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
+                <CardContent>
+                    <Typography>Ravintola X</Typography>
+                </CardContent>
+                <CardActions>
+                    <Button color="secondary" variant="outlined">Valitse<CheckIcon /></Button>
+                </CardActions>
+            </Card>
+            
+        </GridList>
+        
         </Paper>
         </Container>   
         <Container>

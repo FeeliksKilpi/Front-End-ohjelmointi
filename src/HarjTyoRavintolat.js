@@ -56,10 +56,10 @@ const osoiteTietoja = [
 
 const theme = createMuiTheme({
     palette: {
-        primary: {main: red[600], contrastText: '#FFFFFF'},
-        secondary: {main: purple[500], contrastText: '#FFFFFF'},
+        primary: {main: red[900], contrastText: '#FFFFFF'},
+        secondary: {main: blueGrey[900], contrastText: '#FFFFFF'},
         text: {primary: blueGrey[800], secondary: blueGrey[800], contrastText: '#FFFFFF'},
-        action: {hover: purple[200]},
+        action: {hover: blueGrey[500], secondary: blueGrey[800]},
         background: {default: '#ede8dd'},
      },
     typography: { },
