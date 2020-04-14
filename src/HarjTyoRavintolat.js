@@ -4,14 +4,15 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 //Teema
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import purple from '@material-ui/core/colors/purple';
 import red from '@material-ui/core/colors/red';
 
 import Ruokalista from './components/Ruokalista';
 import NavBar from './HarjoitustyoNavigaatio/NavBar';
 import Yhteystietoja from './components/Yhteystietoja';
-import SuosikkiRavintolat from './components/SuosikkiRavintolat';
-import SuosikkiRuoat from './components/SuosikkiRuoat';
+import HaeRavintolat from './components/HaeRavintolat';
+import HaeRuoat from './components/HaeRuoat';
+import LisaaRuokaLomake from './components/LisaaRuokaLomake';
+import muokkaaRavintolaLomake from './components/MuokkaaRavintolaLomake';
 import { blueGrey } from '@material-ui/core/colors';
 
 const osoiteTietoja = [
@@ -78,8 +79,10 @@ function HarjTyoRavintolat() {
                 <Switch>
                     <Route exact path="/" component={ Ruokalista }/>
                     <Route path='/yhteystietoja' render={(props) => <Yhteystietoja {...props} yhteystiedot={ osoiteTietoja }/> } />
-                    <Route path='/suosikkiruoat' component={ SuosikkiRuoat } />
-                    <Route path='/lisaa/:nimi/:hinta?/:allergeenit?' component={  SuosikkiRuoat } />
+                    <Route path='/suosikkiruoat' component={ HaeRuoat } />
+                    <Route path='/suosikkiravintolat' component={ HaeRavintolat } />
+                    <Route path='/lisaa/:haettuNimi/:hinta?/:allergeenit?' component={  LisaaRuokaLomake } />
+                    <Route path='/ravintola/muokkaa/:haettuId/:haettuNimi/:haettuOsoite/:haettuKuva?' component={ muokkaaRavintolaLomake } />
                 </Switch>
             </div>
         </BrowserRouter>

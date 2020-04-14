@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -28,7 +28,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const url = "http://localhost:8080";
 
-class SuosikkiRavintolat extends Component {
+class MatkalistaDeleteMUI extends Component {
     constructor(props) {
         super(props);
         this.state = {  ravintolat: this.props.ravintolat, virhe: '' };
@@ -40,16 +40,12 @@ class SuosikkiRavintolat extends Component {
          .then((responseJson) => {
            this.setState(prevState => ({ ravintola: prevState.ravintolat.filter(ravintola =>
              ravintola.id !== id)
-            }))
-            .then(ravintolat => this.setState({ravintolat: ravintolat}));
-            
+            }));
          })
          .catch((error) => {
             this.setState({virhe: 'Tietojen poisto ei onnistunut'});
          })
       }
-
-    
   
 
     render() {
@@ -61,37 +57,28 @@ class SuosikkiRavintolat extends Component {
           }
 
     return(
-        <Grid container spacing={24} style={{margin: '20px'}}>
-      {  this.state.ravintolat.map(ravintola => {
-              return(
-                <Grid item key={ravintola.id} >
-                  <Card style={{ maxWidth: 200, minWidth: 150, margin: '10px' }}>
-                  <CardHeader
-                    title={ ravintola.nimi.toUpperCase() }
-                    subheader={ ravintola.osoite } />
-
-                    <CardContent>
-
-                      <CardMedia
-                            style={{height: 80}}
-                            image={ravintola.kuva}
-                            title='Ravintolakuva'
-                      />
-
-                       <div style={ {textAlign: 'center', marginTop: 10} }>
-                         <Button onClick={this.poista.bind(this, ravintola.id)}>Poista</Button>
-                         <Button component={Link} to={ '/ravintola/muokkaa/' + ravintola.id + '/' + ravintola.nimi + '/' + ravintola.osoite + '/' + ravintola.kuva}  style={{marginLeft: 5}}>Muokkaa</Button>
-                       </div>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              )
-          })
-       }
-      </Grid>
+        <div>
+            <Paper>
+                <Typography variant={"h3"}>Suosikki Ravintolat</Typography>
+                <List>
+                { props.ravintolat.map (ravintola => {
+                    return (
+                    <ListItem key={ravintola}>
+                            { "nimi: " + ravintola.nimi + " - " + "osoite: " + ravintola.osoite } 
+                            <Button variant="outlined" color="secondary" value={ ravintola.id } onClick={ (e) => poista(e) } >Poista</Button>
+                    </ListItem>
+                    
+                    )
+                })
+                    
+                }
+                </List>
+                { viesti }
+            </Paper>
+        </div>
     )
 }
 
 }
 
-export default SuosikkiRavintolat;
+export default SuosikkiRavintolatcc;

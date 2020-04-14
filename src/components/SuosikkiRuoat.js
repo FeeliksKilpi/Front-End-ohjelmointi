@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
-import NewFoodForm from '../components/NewFoodForm';
+import HaeRuoat from '../components/HaeRuoat';
+import LisaaRuokaLomake from '../components/LisaaRuokaLomake';
 
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -25,58 +26,23 @@ import CreateIcon from '@material-ui/icons/Create';
 import ClearIcon from '@material-ui/icons/Clear';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { Container } from '@material-ui/core';
 
   
-const SuosikkiRuoat = () => {
-  const [ruoat, setValues] = useState([
-    {
-      id: 1,
-      safka: 'Lohikeitto',
-      kalorit: '200kcal',
-      rasva: '5g',
-      hiilarit: '8g',
-      proteiini: '7g'
-    },
-    {
-      id: 2,
-      safka: 'Kasvispizza',
-      kalorit: '450kcal',
-      rasva: '10g',
-      hiilarit: '25g',
-      proteiini: '12g'
-    },
-    {
-      id: 3,
-      safka: 'Pasta Carbonara á La Felix',
-      kalorit: '999kcal',
-      rasva: '30g',
-      hiilarit: '28g',
-      proteiini: '10g'
-    },
-]);
-const addFood = (safka) => {
-  setValues([...ruoat, { 
-    id: uuid(), 
-    nimi: safka.nimi, 
-    hinta: safka.hinta, 
-    allergeenit: safka.allergeenit, 
-    hiilarit: safka.hiilarit, 
-    proteiini: safka.proteiini, }]);
-  setViesti('Lisätty');
-}
-  const [viesti, setViesti] = useState('');
-
-    return(
+function SuosikkiRuoat(props) {
+  return(
     <div>
-      <Typography variant={"h1"}>Suosikkiruoat</Typography>
-      <ul>
-          {(Object.values(ruoat)).map(ruoka => {
-            return( <li>{ruoka.safka + ', kalorit:' + ruoka.kalorit + ', rasva:' + ruoka.rasva + ', hiilarit:' + ruoka.hiilarit + ', proteiini:' + ruoka.proteiini}</li> );
-          })}
-      </ul>
-      <Paper style={ {padding: '10px', margin: '30px'} } >
-          <NewFoodForm addFood={addFood} />
-          <Typography style={{marginTop: 20}}>{ viesti }</Typography>
+      <Paper style={{margin: '20px'}}>
+        <Typography variant={"h1"} style={{margin: '20px'}}>Suosikkiruoat</Typography>
+          <List style={{margin: '20px'}}>
+            { props.ruoat.map (ruoka => {
+              return( 
+                <ListItem key={ruoka.id}>
+                  { ruoka.nimi  + ' - ' + ', hinta: ' + ruoka.hinta + ', allergeenit: ' + ruoka.allergeenit + ', hiilarit: ' + ruoka.hiilarit + ', proteiini: ' + ruoka.proteiini }
+                </ListItem> )
+               }) 
+            }
+        </List>
       </Paper>
     </div>
     )

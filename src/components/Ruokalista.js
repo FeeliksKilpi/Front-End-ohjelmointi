@@ -4,29 +4,19 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import { Container } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
-
 
 //Listaus
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -48,6 +38,7 @@ import lime from '@material-ui/core/colors/lime';
 import teal from '@material-ui/core/colors/teal';
 
 import Yhteystietoja from './Yhteystietoja';
+import HaeJaTeeRavintolat from './HaeJaTeeRavintolat';
 
 const useStyles = makeStyles({
     kortti: 
@@ -112,12 +103,6 @@ function Ruokalista(props) {
 
      });
 
-     //Reitityksen parametrejä varten
-     let {ravID} = useParams();
-     let {ravNimi} = useParams();
-     let { nimi } = useParams();
-     
-
    return (
    <div>
        <Container >
@@ -143,33 +128,8 @@ function Ruokalista(props) {
             <Button color="primary" variant="contained" style={{margin: '10px'}}>Lisää</Button>
         </FormControl>
         
-        <GridList style={{margin: '20px'}}>
-            <Card style={{width: '150px', height: '200px'}}>
-                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
-                <CardContent>
-                    <Typography>Ravintola X</Typography>
-                </CardContent>
-                <CardActions></CardActions>
-            </Card>
-            <Card style={{width: '150px', height: '200px'}}>
-                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
-                <CardContent>
-                    <Typography>Ravintola X</Typography>
-                </CardContent>
-                <CardActions></CardActions>
-            </Card>
-            <Card style={{width: '150px', height: '250px'}}>
-                <CardHeader title={"Tähän ravintolan nimi"}></CardHeader>
-                <CardContent>
-                    <Typography>Ravintola X</Typography>
-                </CardContent>
-                <CardActions>
-                    <Button color="secondary" variant="outlined">Valitse<CheckIcon /></Button>
-                </CardActions>
-            </Card>
-            
-        </GridList>
-        
+        <HaeJaTeeRavintolat />
+
         </Paper>
         </Container>   
         <Container>
