@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import TehtavatMUI from './TehtavatMUI';
 import HarjTyoRavintolat from './HarjTyoRavintolat';
-import App from './App';
+
 
 ReactDOM.render(<HarjTyoRavintolat />, document.getElementById('root'));
 

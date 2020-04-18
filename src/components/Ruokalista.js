@@ -1,44 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-import { Container } from '@material-ui/core';
+import { Paper, Grid, Card, CardHeader, CardContent, CardActions, Typography, Button, Select, MenuItem, FormControl, TextField, 
+List, ListItem, Container, GridList } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
-
-//Listaus
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-
+import { useParams } from 'react-router';
 // Ikonit
 import EcoIcon from '@material-ui/icons/Eco';
 import EuroIcon from '@material-ui/icons/Euro';
 import MoodIcon from '@material-ui/icons/Mood';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import SaveIcon from '@material-ui/icons/Save';
-import CheckIcon from '@material-ui/icons/Check';
 
-//Värit
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import lime from '@material-ui/core/colors/lime';
-import teal from '@material-ui/core/colors/teal';
+import { makeStyles } from '@material-ui/core/styles';
 
-import Yhteystietoja from './Yhteystietoja';
 import HaeJaTeeRavintolat from './HaeJaTeeRavintolat';
+import ValintaPaneeli from './ExpansionPanel';
 
 const useStyles = makeStyles({
     kortti: 
@@ -59,16 +36,17 @@ const useStyles = makeStyles({
         }
     })
 
-function Ruokalista(props) {
+function Ruokalista() {
+    let {haetid} = useParams();
     const classes = useStyles();
     const [ruokalistat, setRuokalistat] = useState([]);
     const [virhe, setVirhe] = useState('Haetaan...');
     const [ravintola, setRavintola] = useState();
     const [luonastietoja, setLuonastietoja] = useState();
     // Ravintolan ID, josta tiedot haetaan
-    const [ID, setID] = useState(59);
+    const [ID, setID] = useState(127);
     // Oletuksena 59, eli Kalasatama
-    
+   
     const fetchUrl = async () => {
         try {
             //Odotetaan responsea ja talletetaan response muuttujaan
@@ -86,22 +64,15 @@ function Ruokalista(props) {
     }
     // Tässä kohtaa useEffect laukaisee tiedon haun kun komponentti on luotu
     useEffect(() => { fetchUrl() }, []);
-
+    
     const hae = (e) => {
         if (ID.length > 0) {
+            
             fetchUrl(ID);
         }else {
          setVirhe('Anna ravintolan ID');
         }
      }
-
-     const theme = createMuiTheme({
-        palette: {
-            primary: lime,
-            secondary: teal,
-        },
-
-     });
 
    return (
    <div>
@@ -112,24 +83,25 @@ function Ruokalista(props) {
                 
         </Paper >
         <Paper elevation={1} className={classes.kontrollit}>
-        
-        <FormControl style={ {fontSize: '12px', margin: '20px'} }>
-            <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID} onChange={ (e) => setID(e.target.value)}></TextField>
-                <Select id="ravintolavalinta" name="ravintolatlista" value={ID} onChange={ (e) => setID(e.target.value) }>
-                    <MenuItem value='59'>Ravintola Kalasatama (59)</MenuItem>
-                    <MenuItem value='89'>Ravintola Viikin Kartano (89)</MenuItem>
-                    <MenuItem value='56'>Ravintola La Mer (56)</MenuItem>
-                    <MenuItem value='127'>Ravintola JAMK Bittipannu (127)</MenuItem>
-                    <MenuItem value='120'>Ravintola Elektra (120)</MenuItem>
-                    <MenuItem value='121'>Ravintola Galaksi (121)</MenuItem>
-                </Select>
-                {virhe}
-            <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) } style={{margin: '10px'}}>Hae</Button>
-            <Button color="primary" variant="contained" style={{margin: '10px'}}>Lisää</Button>
-        </FormControl>
-        
-        <HaeJaTeeRavintolat />
-
+            <GridList spacing={2} cols={2}>
+                
+                <FormControl style={ {fontSize: '12px', margin: '20px'} }>
+                    <TextField htmlFor='ravintola' variant="outlined" label={"Ravintolan ID, nyt: " + ID} onChange={ (e) => setID(e.target.value)}></TextField>
+                        <Select id="ravintolavalinta" name="ravintolatlista" value={ID} onChange={ (e) => setID(e.target.value) }>
+                            <MenuItem value='59'>Ravintola Kalasatama (59)</MenuItem>
+                            <MenuItem value='89'>Ravintola Viikin Kartano (89)</MenuItem>
+                            <MenuItem value='56'>Ravintola La Mer (56)</MenuItem>
+                            <MenuItem value='127'>Ravintola JAMK Bittipannu (127)</MenuItem>
+                            <MenuItem value='120'>Ravintola Elektra (120)</MenuItem>
+                            <MenuItem value='121'>Ravintola Galaksi (121)</MenuItem>
+                        </Select>
+                        {virhe}
+                    <Button color="primary" variant="contained" value={ID} onClick={ (e) => hae(e) } style={{margin: '10px'}}>Hae</Button>
+                </FormControl>
+                <ValintaPaneeli />
+            </GridList>
+        <Typography variant={'h2'}style={{textAlign: 'center'}}>Suosikkiravintoloita</Typography>
+            <HaeJaTeeRavintolat />
         </Paper>
         </Container>   
         <Container>

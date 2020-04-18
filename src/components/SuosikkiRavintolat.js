@@ -1,30 +1,6 @@
-import React, { useEffect, useState, Component } from 'react';
-import axios from 'axios';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardActions from '@material-ui/core/CardActions';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
-
+import React, { Component } from 'react';
+import { Paper, Grid, Card, CardHeader, CardContent, CardMedia, Typography, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router';
-
-//Listaus
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 
 const url = "http://localhost:8080";
 
@@ -40,16 +16,13 @@ class SuosikkiRavintolat extends Component {
          .then((responseJson) => {
            this.setState(prevState => ({ ravintola: prevState.ravintolat.filter(ravintola =>
              ravintola.id !== id)
-            }))
-            .then(ravintolat => this.setState({ravintolat: ravintolat}));
-            
+            }));
+            window.location.reload(false);
          })
          .catch((error) => {
             this.setState({virhe: 'Tietojen poisto ei onnistunut'});
          })
       }
-
-    
   
 
     render() {
@@ -61,34 +34,39 @@ class SuosikkiRavintolat extends Component {
           }
 
     return(
-        <Grid container spacing={24} style={{margin: '20px'}}>
-      {  this.state.ravintolat.map(ravintola => {
-              return(
-                <Grid item key={ravintola.id} >
-                  <Card style={{ maxWidth: 200, minWidth: 150, margin: '10px' }}>
-                  <CardHeader
-                    title={ ravintola.nimi.toUpperCase() }
-                    subheader={ ravintola.osoite } />
-
-                    <CardContent>
-
-                      <CardMedia
-                            style={{height: 80}}
-                            image={ravintola.kuva}
-                            title='Ravintolakuva'
-                      />
-
-                       <div style={ {textAlign: 'center', marginTop: 10} }>
-                         <Button onClick={this.poista.bind(this, ravintola.id)}>Poista</Button>
-                         <Button component={Link} to={ '/ravintola/muokkaa/' + ravintola.id + '/' + ravintola.nimi + '/' + ravintola.osoite + '/' + ravintola.kuva}  style={{marginLeft: 5}}>Muokkaa</Button>
-                       </div>
-                    </CardContent>
-                  </Card>
+        <div>
+            <Paper style={{margin: '20px'}}>
+                <Typography variant={"h4"} style={{textAlign: 'center'}}>Suosikkiravintolat</Typography>
+                <Grid container spacing={24} style={{margin: '20px'}}>
+                { this.state.ravintolat.map (ravintola => {
+                    return (
+                        <Grid item key={ravintola.id} >
+                        <Card style={{ maxWidth: 200, minWidth: 170, minHeight: 350, maxHeight: 350, margin: '10px' }}>
+                        <CardHeader
+                          title={ ravintola.nimi.toUpperCase() + ' ID: ' + ravintola.id }
+                          subheader={ ravintola.osoite } />
+                          <CardContent>
+                            <CardMedia
+                                style={{height: 80}}
+                                image={ravintola.kuva}
+                                title='Ravintolakuva' />
+                            
+                             <div style={ {textAlign: 'center', marginTop: 10} }>
+                               <Button type="submit" color="secondary" variant="contained"  onClick={ this.poista.bind(this, ravintola.id) }>Poista</Button>
+                               <Button variant="contained" component={Link} to={ '/ravintola/muokkaa/' + ravintola.id + '/' + ravintola.nimi + '/' + ravintola.osoite + '/' + ravintola.kuva}  style={{marginLeft: 5}}>Muokkaa</Button>
+                             </div>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    
+                    )
+                })
+                    
+                }
                 </Grid>
-              )
-          })
-       }
-      </Grid>
+                
+            </Paper>
+        </div>
     )
 }
 

@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import uuid from 'react-uuid';
-import Button from '@material-ui/core/Button';
-import { TextField } from '@material-ui/core';
+import { TextField, Button, Paper } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useParams } from 'react-router';
-import { Container } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-
 import axios from 'axios';
-import Ruokalista from './Ruokalista';
+
 
 const url = "http://localhost:8080";
 const LisaaRuokaLomake = () => {
@@ -78,7 +73,7 @@ return (
             onChange={ (e) => muuta(e) } margin='normal' required fullWidth={true} />
         <TextField label='Proteiini' name='proteiini' value={ uusiRuoka.proteiini }
             onChange={ (e) => muuta(e) } margin='normal' required fullWidth={true} />
-
+            { viesti }
               <Button style={{padding: '10px'}} onClick={ (e) => handleSubmit(e) } variant="contained" color="primary"><CreateIcon />Lisää</Button>
               <Button style={{padding: '10px'}} onClick={ (e) => tyhjenna(e) } variant="contained" color="secondary"><ClearIcon />Tyhjennä</Button>
           

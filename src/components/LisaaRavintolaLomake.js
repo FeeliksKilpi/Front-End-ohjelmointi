@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import uuid from 'react-uuid';
-import Button from '@material-ui/core/Button';
-import { TextField } from '@material-ui/core';
+import { TextField, Button, Paper } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useParams } from 'react-router';
-import { Container } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 
-import Ruokalista from './Ruokalista';
 
 const url = "http://localhost:8080";
 const LisaaRavintolaLomake = () => {
-    
+    let {haettuNimi, haettuOsoite, haettuKuva} = useParams();
     const [viesti, setViesti] = useState('');
     const [ravintola, setValues] = useState(
         {
-            nimi: '',
-            osoite: '',
-            kuva: '',
+            nimi: haettuNimi,
+            osoite: haettuOsoite,
+            kuva: haettuKuva,
         } );
         
     const lisaaRavintola = (e) => {

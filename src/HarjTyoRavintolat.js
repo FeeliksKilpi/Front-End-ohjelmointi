@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import red from '@material-ui/core/colors/red';
+import { blueGrey } from '@material-ui/core/colors';
 
 import Ruokalista from './components/Ruokalista';
 import NavBar from './HarjoitustyoNavigaatio/NavBar';
@@ -13,7 +14,9 @@ import HaeRavintolat from './components/HaeRavintolat';
 import HaeRuoat from './components/HaeRuoat';
 import LisaaRuokaLomake from './components/LisaaRuokaLomake';
 import muokkaaRavintolaLomake from './components/MuokkaaRavintolaLomake';
-import { blueGrey } from '@material-ui/core/colors';
+import LisaaRavintolaLomake from './components/LisaaRavintolaLomake';
+import SuosikkiRavintolat from './components/SuosikkiRavintolat';
+import TietojaSivu from './components/TietojaSivu';
 
 const osoiteTietoja = [
     {
@@ -78,11 +81,15 @@ function HarjTyoRavintolat() {
                 <NavBar />
                 <Switch>
                     <Route exact path="/" component={ Ruokalista }/>
+                    <Route path="/ravintola/haettu/:haetid" component={ Ruokalista }/>
                     <Route path='/yhteystietoja' render={(props) => <Yhteystietoja {...props} yhteystiedot={ osoiteTietoja }/> } />
                     <Route path='/suosikkiruoat' component={ HaeRuoat } />
                     <Route path='/suosikkiravintolat' component={ HaeRavintolat } />
                     <Route path='/lisaa/:haettuNimi/:hinta?/:allergeenit?' component={  LisaaRuokaLomake } />
+                    <Route path='/lisaaravintola/:haettuNimi/:haettuOsoite?/:haettuKuva?' component={  LisaaRavintolaLomake } />
                     <Route path='/ravintola/muokkaa/:haettuId/:haettuNimi/:haettuOsoite/:haettuKuva?' component={ muokkaaRavintolaLomake } />
+                    <Route path='/ravintola/delete/:haettuId' component={ SuosikkiRavintolat } />
+                    <Route path='/Tietoa' component={ TietojaSivu } />
                 </Switch>
             </div>
         </BrowserRouter>

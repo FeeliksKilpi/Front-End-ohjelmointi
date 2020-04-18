@@ -1,40 +1,20 @@
 import React, { useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { AppBar, Toolbar, Typography, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem } from '@material-ui/core';
+
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import CreateIcon from '@material-ui/icons/Create'
-import ListIcon from '@material-ui/icons/List';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
-import Menu from '@material-ui/core/Menu';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HelpIcon from '@material-ui/icons/Help';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import ContactsIcon from '@material-ui/icons/Contacts';
 
-import SaaLomake from '../tehtävät/components/SaaLomake';
-import Ruokalista from '../components/Ruokalista';
-import Sananlasku from '../components/Sananlasku';
-import Slideri from '../components/Slideri';
-import Koulutusohjelmat from '../components/Koulutusohjelmat';
-
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-    const [value, setValue] = useState(0);
     //Drawer
     const [open, setOpen] = useState(false);
     const handleOpen = () => { setOpen(true); }
@@ -48,8 +28,10 @@ function NavBar() {
     const menu =
     <Menu anchorEl={ personMenu } open={ Boolean(personMenu) } onClose={ handlePersonMenuClose } >
         <MenuItem onClick={ handleClose }>
+          <ListItem button component={ Link } to ='/tietoja'>
             <ListItemIcon><HelpIcon /></ListItemIcon>
-            <ListItemText primary='Tietoja Sovelluksesta' />
+            <ListItemText primary='Tietoja Sovelluksesta'/>
+            </ListItem>
         </MenuItem>
         <MenuItem onClick= { handleClose }>
             <ListItemIcon><ContactMailIcon /></ListItemIcon>

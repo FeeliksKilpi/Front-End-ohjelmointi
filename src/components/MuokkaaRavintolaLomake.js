@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import uuid from 'react-uuid';
-import Button from '@material-ui/core/Button';
-import { TextField, Typography } from '@material-ui/core';
+import { TextField, Typography, Paper, Button } from '@material-ui/core';
 import CreateIcon from '@material-ui/icons/Create';
 import ClearIcon from '@material-ui/icons/Clear';
 import { useParams } from 'react-router';
-import { Container } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
-import  { Redirect } from 'react-router-dom'
 
-import Ruokalista from './Ruokalista';
 
 const url = "http://localhost:8080";
 const MuokkaaRavintolaLomake = () => {
